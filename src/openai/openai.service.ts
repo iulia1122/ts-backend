@@ -8,9 +8,14 @@ export class OpenaiService {
   constructor(private readonly openAi: OpenAI) {}
 
   async createChatCompletion(messages: ChatCompletionMessageDto[]) {
-    return this.openAi.chat.completions.create({
-      messages: messages as ChatCompletionMessageParam[],
-      model: "gpt-3.5-turbo-instruct",
-    })
+
+    try {
+      return await this.openAi.chat.completions.create({
+        messages: messages as ChatCompletionMessageParam[],
+        model: "gpt-3.5-turbo-instruct",
+      })
+    } catch(error) {
+      return error;
+    }
   }
 }
