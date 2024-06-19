@@ -10,12 +10,13 @@ export class OpenaiService {
   async createChatCompletion(messages: ChatCompletionMessageDto[]) {
 
     try {
-      return await this.openAi.chat.completions.create({
+      const result = await this.openAi.chat.completions.create({
         messages: messages as ChatCompletionMessageParam[],
         model: "gpt-3.5-turbo-instruct",
       })
+      return result;
     } catch(error) {
-      return error;
+      return error.error;
     }
   }
 }
